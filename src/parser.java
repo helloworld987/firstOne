@@ -16,9 +16,18 @@ public class parser {
 
 
 	public static Map<String, List<String>> config = new HashMap<String, List<String>>();
-	public static Map<String, List<Object>> sendRules = new HashMap<String, List<Object>>();
-	public static Map<String, List<Object>> receiveRules = new HashMap<String, List<Object>>();
+	//public static Map<String, List<Object>> sendRules = new HashMap<String, List<Object>>();
+	//public static Map<String, List<Object>> receiveRules = new HashMap<String, List<Object>>();
 	
+	/* Store different sendRules acording to actions */
+	public static List<Object> sendAction_drop = new ArrayList<Object>();
+	public static List<Object> sendAction_duplicate = new ArrayList<Object>();
+	public static List<Object> sendAction_delay = new ArrayList<Object>();	
+	
+	/* Store different receiveRules acording to actions */
+	public static List<Object> receiveAction_drop = new ArrayList<Object>();
+	public static List<Object> receiveAction_duplicate = new ArrayList<Object>();
+	public static List<Object> receiveAction_delay = new ArrayList<Object>();	
 	
 	public parser() {
 		// TODO Auto-generated constructor stub
@@ -49,11 +58,21 @@ public class parser {
 		
 		int length, i=0;
 		
+		
 		List<Object> res = (List<Object>)result.get("sendRules");
 		length = res.size();
 		
+		
 		while(i != length) {
 			Map<String,Object> sendrules = (Map<String,Object>) res.get(i);
+			if (sendrules.get("action").equals("drop")){
+				sendAction_drop.add(sendrules);
+			}else if (sendrules.get("action").equals("delay")){
+				sendAction_delay.add(sendrules);
+			}else if (sendrules.get("action").equals("duplicate")){
+				sendAction_duplicate.add(sendrules);
+			}
+			/*
 			List <Object> rules = new ArrayList<Object>();
 						
 			rules.add(sendrules.get("src"));
@@ -62,10 +81,10 @@ public class parser {
 			rules.add(sendrules.get("seqNum"));
 			
 			sendRules.put((String)sendrules.get("action"), rules);
-			
+			*/
 			i++;
 		}
-		//System.out.println(sendRules.get("delay"));
+	
 	}
 	
 	public void get_receiveRules(Map<String,Object> result) {
@@ -77,16 +96,26 @@ public class parser {
 		
 		while(i != length) {
 			Map<String,Object> receiverules = (Map<String,Object>) res.get(i);
+			
+			if (receiverules.get("action").equals("drop")){
+				receiveAction_drop.add(receiverules);
+			}else if (receiverules.get("action").equals("delay")){
+				receiveAction_delay.add(receiverules);
+			}else if (receiverules.get("action").equals("duplicate")){
+				receiveAction_duplicate.add(receiverules);
+			}
+			
+			/*
 			List <Object> rules = new ArrayList<Object>();
 						
 			rules.add(receiverules.get("src"));
 			rules.add(receiverules.get("seqNum"));
 			
 			receiveRules.put((String)receiverules.get("action"), rules);
-			
+			*/
 			i++;
 		}
-		//System.out.println(receiveRules.get("duplicate"));
+		//System.out.println(receiveAction_delay.get(0));
 	}
 
 	/**
@@ -99,11 +128,11 @@ public class parser {
 		//datatype conf = new datatype();
 		
 		Yaml yaml = new Yaml();
-		InputStream ios = new FileInputStream(new File("/home/madhuri/workspace/Lab0_DS/src/test3.yaml"));
+		InputStream ios = new FileInputStream(new File("/home/madhuri/DS/Lab0/firstOne/src/test3.yaml"));
 	
 		Map<String,Object> result = (Map<String,Object>)yaml.load(ios);
-    		
-		//System.out.println(result.get("sendRules"));
+    			
+		System.out.println(result.get("sendRules"));
 		
 		parse.get_config(result);
 		parse.get_sendRules(result);
