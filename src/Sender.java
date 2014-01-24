@@ -18,6 +18,7 @@ public class Sender {
 		sendSockets = new HashMap<String, Socket>();;
 	}
 	public void send(){
+		
 		try {
 			if(Rules.send_delay_flag)
 				return;

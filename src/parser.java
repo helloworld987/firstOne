@@ -122,8 +122,16 @@ public class parser {
 	 */
 public void parseConfig(String fname) throws FileNotFoundException {
 		
-		//parser parse = new parser();
-		//datatype conf = new datatype();
+		//Clear all lists
+		config.clear();
+		
+		sendAction_drop.clear();
+		sendAction_delay.clear();
+		sendAction_duplicate.clear();
+		
+		receiveAction_delay.clear();
+		receiveAction_drop.clear();
+		receiveAction_duplicate.clear();
 		
 		Yaml yaml = new Yaml();
 		InputStream ios = new FileInputStream(new File(fname));

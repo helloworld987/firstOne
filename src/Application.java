@@ -24,7 +24,6 @@ public class Application {
 		
 
 		MessagePasser msgPasser = new MessagePasser (fname, processName);
-
 		
 		System.out.println("1.Send\n"  + "2.Receive\n");
 		
@@ -62,9 +61,7 @@ public class Application {
 						break;
 			}
 		}
-		// msgPasser.send(msg);
-		// Thread.sleep(5000);
-
+	
 	}
 
 }

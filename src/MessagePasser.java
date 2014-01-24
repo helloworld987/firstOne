@@ -1,4 +1,6 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 public class MessagePasser {
 	Sender sender = null;
@@ -7,8 +9,17 @@ public class MessagePasser {
 	int seqNum = 0;
 	
 	parser parser = new parser();
+	public static long lastModified;
+	public static String conf_filename ;
 	
 	public MessagePasser(String configuration_filename, String local_name) throws FileNotFoundException {
+	
+		//Check lastModified date of file
+		File file = new File(configuration_filename);
+		lastModified = file.lastModified();
+		
+		this.conf_filename = configuration_filename;
+		
 		parser.parseConfig(configuration_filename);
 		int port = Integer.parseInt(parser.config.get(local_name).get(1));
 		
@@ -22,13 +33,13 @@ public class MessagePasser {
 		sender.setup();
 	}
 	
-	void send(Message message) {
+	void send(Message message) throws FileNotFoundException {
 		message.set_source(localName);
 		message.set_seqNum(seqNum++);
 		
 		Rules sendrules = new Rules();
 		sendrules.checkSendRules(message);
-		//sender.addToQueue(message);
+			
 		sender.send();
 	} 
 
