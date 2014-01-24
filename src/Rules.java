@@ -92,6 +92,7 @@ public class Rules {
 		
 		//If no action matches, then send the msg
 		Sender.sendQueue.add(msg);
+		send_delay_flag = false;
 	}
 	
 	public void checkReceiveRules(Message msg) {
@@ -179,5 +180,6 @@ public class Rules {
 		
 		//If no action matches, then send the msg
 		Receiver.receiveQueue.add(msg);
+		recv_delay_flag = false;
 	}
 }

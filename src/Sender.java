@@ -41,7 +41,6 @@ public class Sender {
 					
 			out.writeObject(msg);
 			out.flush();
-			out.close();
 		    }
 			
 		} catch (Exception e) {

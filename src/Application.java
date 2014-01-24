@@ -34,7 +34,9 @@ public class Application {
 			choice = Integer.parseInt(in.next());
 			
 			switch(choice){
-				case 1: System.out.println("Peer Name-");
+			
+				case 1: 
+						System.out.println("Peer Name-");
 						in = new Scanner(System.in);
 						peerName = in.next();
 						
