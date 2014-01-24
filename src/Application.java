@@ -15,15 +15,15 @@ public class Application {
 		// fname = in.next();
 		//
 		//
-//		System.out.println("Enter process name:");
-//		in = new Scanner(System.in);
-//		processName = in.next();
+		System.out.println("Enter process name:");
+		in = new Scanner(System.in);
+		processName = in.next();
 
 		// Message msg = new Message ("bob", "Ack", "123");
 
 		MessagePasser msgPasser = new MessagePasser(
 				"C:\\Java_Workspace\\GitHub\\firstOne\\src\\test4.yaml",
-				"alice");
+				processName);
 
 		System.out.println("1.Send\n" + "2.Receive\n");
 
@@ -34,7 +34,7 @@ public class Application {
 
 			switch (choice) {
 			case 1:
-				Message msg = new Message("alice", "Ack", "123");
+				Message msg = new Message("bob", "Ack", "123");
 				msgPasser.send(msg);
 				break;
 

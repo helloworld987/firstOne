@@ -91,6 +91,7 @@ public class Receiver implements Runnable {
 						recvRules.checkReceiveRules(data);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}  
 				}
 			}
