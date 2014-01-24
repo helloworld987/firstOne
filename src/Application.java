@@ -14,17 +14,16 @@ public class Application {
 		String message;
 		String kind;
 		
-//		System.out.println("Enter config file:");
-//		in = new Scanner(System.in);
-//		fname = in.next();
-//		
-//
+		System.out.println("Enter config file:");
+		in = new Scanner(System.in);
+		fname = in.next();
+
 		System.out.println("Enter process name:");
 		in = new Scanner(System.in);
 		processName = in.next();
 		
 
-		MessagePasser msgPasser = new MessagePasser ("/home/madhuri/DS/Lab0/firstOne/src/test4.yaml", processName);
+		MessagePasser msgPasser = new MessagePasser (fname, processName);
 
 		
 		System.out.println("1.Send\n"  + "2.Receive\n");
