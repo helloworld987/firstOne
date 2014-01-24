@@ -14,8 +14,6 @@ public class Rules {
 		File file = new File(MessagePasser.conf_filename);
 		long Modified = file.lastModified();
 		if (MessagePasser.lastModified != Modified) {
-			
-			System.out.println("Lastmod=" + MessagePasser.lastModified + "Modified=" + Modified);
 			MessagePasser.parser.parseConfig(MessagePasser.conf_filename);
 			MessagePasser.lastModified = Modified;
 		}
@@ -44,7 +42,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
+									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
 								return;
 							}
 
@@ -67,7 +65,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
+									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
 								Sender.sendQueue.add(msg);
 								send_delay_flag = true;
 								return;
@@ -91,7 +89,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(Integer.toString(msg.seqNum))) {
+									|| rules.get("seqNum").toString().equals(Integer.toString(msg.seqNum))) {
 
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
@@ -136,7 +134,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
+									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
 								return;
 							}
 
@@ -159,7 +157,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
+									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
 								Receiver.receiveQueue.add(msg);
 								recv_delay_flag = true;
 								return;
@@ -183,7 +181,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
+									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
 								msg_dup.set_seqNum(msg.seqNum);

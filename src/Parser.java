@@ -14,9 +14,7 @@ public class Parser {
 
 
 	public static Map<String, List<String>> config = new HashMap<String, List<String>>();
-	//public static Map<String, List<Object>> sendRules = new HashMap<String, List<Object>>();
-	//public static Map<String, List<Object>> receiveRules = new HashMap<String, List<Object>>();
-	
+
 	/* Store different sendRules acording to actions */
 	public static List<Object> sendAction_drop = new ArrayList<Object>();
 	public static List<Object> sendAction_duplicate = new ArrayList<Object>();
@@ -127,7 +125,7 @@ public class Parser {
 	 * @param args
 	 * @throws FileNotFoundException 
 	 */
-public void parseConfig(String fname) throws FileNotFoundException {
+public void parseConfig(String fname) {
 		
 		//Clear all lists
 		config.clear();
@@ -141,7 +139,15 @@ public void parseConfig(String fname) throws FileNotFoundException {
 		receiveAction_duplicate.clear();
 		
 		Yaml yaml = new Yaml();
-		InputStream ios = new FileInputStream(new File(fname));
+
+		InputStream ios;
+		try {
+			ios = new FileInputStream(new File(fname));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("File name is wrong!");
+			return;
+		}
 	
 		Map<String,Object> result = (Map<String,Object>)yaml.load(ios);
 		
