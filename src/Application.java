@@ -20,7 +20,7 @@ public class Application {
 		
 		Message msg = new Message ("alice", "Ack", "123");
 		
-		MessagePasser msgPasser = new MessagePasser ("C:\\Java_Workspace\\GitHub\\firstOne\\src\\test4.yaml", "alice");
+		MessagePasser msgPasser = new MessagePasser ("/home/madhuri/DS/Lab0/firstOne/src/test4.yaml", "alice");
 		
 		msgPasser.send(msg);
 		Thread.sleep(5000);

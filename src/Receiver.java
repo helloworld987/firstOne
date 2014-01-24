@@ -1,25 +1,25 @@
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayDeque;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Queue;
 
 public class Receiver implements Runnable {
 	int port = 5050;
 	public static Queue<Message> receiveQueue = null;
-	Queue<Message> deliverQueue = null;
-	HashMap<String, Socket> socketSet = null;
-	Rules recvRules = new Rules();
 	
-	public void setup(int portNumber, HashMap<String, Socket> socketSetPara) {
+
+	Rules recvRules = new Rules();
+
+	HashSet<Socket> recSockets = null;
+
+	public void setup(int portNumber) {
+
 		this.port = portNumber;
 		receiveQueue = new ArrayDeque<Message>();
-		deliverQueue = new ArrayDeque<Message>();
-		socketSet = socketSetPara;
-		new Thread(new DeliverCheck()).start();
+		recSockets = new HashSet<Socket>();
 		new Thread(new receiveContent()).start();
 	}
 
@@ -39,10 +39,8 @@ public class Receiver implements Runnable {
 		while (true) {
 			try {
 				Socket cltSocket = servSock.accept();
-				int remotePort = cltSocket.getPort();
-				InetAddress remoteAddr = cltSocket.getInetAddress();
-				String key = remoteAddr.toString() + remotePort;
-				socketSet.put(key, cltSocket);
+				recSockets.add(cltSocket);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -52,7 +50,6 @@ public class Receiver implements Runnable {
 
 	public Message getMessage() {
 		// TODO Auto-generated method stub
-		//return deliverQueue.poll();
 		return receiveQueue.poll();
 	}
 	
@@ -61,11 +58,11 @@ public class Receiver implements Runnable {
 		public void run() {
 			// TODO Auto-generated method stub
 			while (true) {
-				for (Socket socket: socketSet.values()) {
+				for (Socket socket: recSockets) {
 					try {
 						ObjectInputStream  in = new ObjectInputStream(socket.getInputStream()); 
 						Message data = (Message)in.readObject();
-						//receiveQueue.add(data);
+						
 						recvRules.checkReceiveRules(data);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
@@ -74,28 +71,5 @@ public class Receiver implements Runnable {
 			}
 		}
 		
-	}
-
-	private class DeliverCheck implements Runnable {
-
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			while (true) {
-				if (receiveQueue.isEmpty()) {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					continue;
-				}
-				Message msg = receiveQueue.poll();
-				// check then
-				deliverQueue.add(msg);
-			}
-		}
-
 	}
 }

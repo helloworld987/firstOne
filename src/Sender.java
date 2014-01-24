@@ -33,17 +33,17 @@ public class Sender implements Runnable {
 			try {
 				while(!sendQueue.isEmpty()) {
 				Message msg = sendQueue.remove();
-				//String destID = msg.destName;
-				String ipAddr = parser.config.get(msg.destName).get(0);
-				int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
 			
+				String destID = msg.destName;
 				
 				Socket socket = null;
-				if (socketSet.containsKey(ipAddr+port)) {
-					socket = socketSet.get(ipAddr+port);
+				if (socketSet.containsKey(destID)) {
+					socket = socketSet.get(destID);
 				} else {
-					socket = new  Socket(ipAddr, port);
-					socketSet.put(ipAddr+port, socket);
+					String ipAddr = parser.config.get(msg.destName).get(0);
+					int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
+					socket = new Socket(ipAddr, port);
+					socketSet.put(destID, socket);
 				}
   
 				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
