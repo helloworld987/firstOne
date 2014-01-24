@@ -58,6 +58,8 @@ public class parser {
 		
 		
 		List<Object> res = (List<Object>)result.get("sendRules");
+		if(res == null)
+			return;
 		length = res.size();
 		
 		
@@ -90,7 +92,12 @@ public class parser {
 		int length, i=0;
 		
 		List<Object> res = (List<Object>)result.get("receiveRules");
+		
+		if(res == null)
+			return;
+		
 		length = res.size();
+		
 		
 		while(i != length) {
 			Map<String,Object> receiverules = (Map<String,Object>) res.get(i);
