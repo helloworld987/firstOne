@@ -29,9 +29,10 @@ public class Sender implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while (true) {
-			if (sendQueue.isEmpty()) continue;
+			if (sendQueue.isEmpty() && Rules.send_delay_flag) continue;
 			try {
-				Message msg = sendQueue.poll();
+				while(!sendQueue.isEmpty()) {
+				Message msg = sendQueue.remove();
 				//String destID = msg.destName;
 				String ipAddr = parser.config.get(msg.destName).get(0);
 				int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
@@ -45,10 +46,13 @@ public class Sender implements Runnable {
 					socketSet.put(ipAddr+port, socket);
 				}
   
-				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());  
-				out.writeObject(msg); 
-				out.flush(); 
+				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+						
+				out.writeObject(msg);
+				out.flush();
 				out.close();
+			    }
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

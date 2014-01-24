@@ -12,7 +12,8 @@ public class Receiver implements Runnable {
 	public static Queue<Message> receiveQueue = null;
 	Queue<Message> deliverQueue = null;
 	HashMap<String, Socket> socketSet = null;
-
+	Rules recvRules = new Rules();
+	
 	public void setup(int portNumber, HashMap<String, Socket> socketSetPara) {
 		this.port = portNumber;
 		receiveQueue = new ArrayDeque<Message>();
@@ -51,7 +52,8 @@ public class Receiver implements Runnable {
 
 	public Message getMessage() {
 		// TODO Auto-generated method stub
-		return deliverQueue.poll();
+		//return deliverQueue.poll();
+		return receiveQueue.poll();
 	}
 	
 	private class receiveContent implements Runnable {
@@ -63,7 +65,8 @@ public class Receiver implements Runnable {
 					try {
 						ObjectInputStream  in = new ObjectInputStream(socket.getInputStream()); 
 						Message data = (Message)in.readObject();
-						receiveQueue.add(data);
+						//receiveQueue.add(data);
+						recvRules.checkReceiveRules(data);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 					}  

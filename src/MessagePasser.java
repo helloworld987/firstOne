@@ -36,6 +36,9 @@ public class MessagePasser {
 	} 
 
 	Message receive() {
+		//If there is delay, msg = null
+		if(Rules.recv_delay_flag)
+			return null;
 		return receiver.getMessage();
 	} // may block. Doesn't have to.
 }
