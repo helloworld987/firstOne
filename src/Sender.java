@@ -1,10 +1,4 @@
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -26,6 +20,8 @@ public class Sender {
 	}
 	public void send(){
 		try {
+			if(Rules.send_delay_flag)
+				return;
 			while(!sendQueue.isEmpty()) {
 			Message msg = sendQueue.remove();
 		
