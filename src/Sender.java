@@ -9,7 +9,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 public class Sender implements Runnable {
-	Queue<Message> sendQueue = null;
+	public static Queue<Message> sendQueue = null;
 
 	public void addToQueue(Message message) {
 		sendQueue.add(message);

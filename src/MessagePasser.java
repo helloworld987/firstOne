@@ -24,7 +24,9 @@ public class MessagePasser {
 		message.set_source(localName);
 		message.set_seqNum(seqNum++);
 		
-		sender.addToQueue(message);
+		Rules sendrules = new Rules();
+		sendrules.checkSendRules(message);
+		//sender.addToQueue(message);
 	} 
 	Message receive() {
 		return receiver.getMessage();
