@@ -56,7 +56,6 @@ public class Application {
 						System.out.println("Message -");
 						in = new Scanner(System.in);
 						message = in.nextLine();
-						System.out.println("haha"+message);
 						
 						Message msg = new Message (peerName, kind, message);
 						msgPasser.send(msg);
