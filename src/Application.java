@@ -21,7 +21,7 @@ public class Application {
 		
 		//Message msg = new Message ("bob", "Ack", "123");
 		
-		MessagePasser msgPasser = new MessagePasser ("/home/madhuri/DS/Lab0/firstOne/src/test4.yaml", processName);
+		MessagePasser msgPasser = new MessagePasser ("C:\\Java_Workspace\\GitHub\\firstOne\\src\\test4.yaml", processName);
 		
 		System.out.println("1.Send\n"  + "2.Receive\n");
 		

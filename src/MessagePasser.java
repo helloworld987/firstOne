@@ -23,7 +23,6 @@ public class MessagePasser {
 		
 		sender = new Sender();
 		sender.setup(sendSockets);
-		new Thread(sender).start();
 	}
 	
 	void send(Message message) {
@@ -33,6 +32,7 @@ public class MessagePasser {
 		Rules sendrules = new Rules();
 		sendrules.checkSendRules(message);
 		//sender.addToQueue(message);
+		sender.send();
 	} 
 
 	Message receive() {
