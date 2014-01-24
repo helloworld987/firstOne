@@ -29,6 +29,8 @@ sendRules :
    seqNum : 2
  
  - action : duplicate # Every Lookup message in the system will be delayed
+   src : c
+   dest : d
    kind : Lookup
 
 receiveRules :
