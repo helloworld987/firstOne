@@ -1,13 +1,11 @@
 import java.io.FileNotFoundException;
-import java.net.Socket;
-import java.util.HashMap;
 
 public class MessagePasser {
 	Sender sender = null;
 	Receiver receiver = null;
 	String localName = null;
 	int seqNum = 0;
-	HashMap<String, Socket> sendSockets = null;
+	
 	parser parser = new parser();
 	
 	public MessagePasser(String configuration_filename, String local_name) throws FileNotFoundException {
@@ -15,14 +13,13 @@ public class MessagePasser {
 		int port = Integer.parseInt(parser.config.get(local_name).get(1));
 		
 		localName = local_name;
-		sendSockets = new HashMap<String, Socket>();
 		
 		receiver = new Receiver();
 		receiver.setup(port);
 		new Thread(receiver).start();
 		
 		sender = new Sender();
-		sender.setup(sendSockets);
+		sender.setup();
 	}
 	
 	void send(Message message) {

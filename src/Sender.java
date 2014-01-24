@@ -7,16 +7,15 @@ import java.util.Queue;
 public class Sender {
 
 	public static Queue<Message> sendQueue = null;
-	HashMap<String, Socket> socketSet = null;
-
+	HashMap<String, Socket> sendSockets = null;
 
 	public void addToQueue(Message message) {
 		sendQueue.add(message);
 	}
 	
-	public void setup(HashMap<String, Socket> socketSetPara) {
+	public void setup() {
 		sendQueue = new ArrayDeque<Message>();
-		socketSet = socketSetPara;
+		sendSockets = new HashMap<String, Socket>();;
 	}
 	public void send(){
 		try {
@@ -28,22 +27,30 @@ public class Sender {
 			String destID = msg.destName;
 			
 			Socket socket = null;
-			if (socketSet.containsKey(destID)) {
-				socket = socketSet.get(destID);
+			if (sendSockets.containsKey(destID)) {
+				socket = sendSockets.get(destID);
+				try{
+				    socket.sendUrgentData(0xFF);
+				}catch(Exception ex){
+					String ipAddr = parser.config.get(msg.destName).get(0);
+					int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
+					socket = new Socket(ipAddr, port);
+					sendSockets.put(destID, socket);
+				}
 			} else {
 				String ipAddr = parser.config.get(msg.destName).get(0);
 				int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
 				socket = new Socket(ipAddr, port);
-				socketSet.put(destID, socket);
+				sendSockets.put(destID, socket);
 			}
 
-			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-					
-			out.writeObject(msg);
-			out.flush();
-			out.close();
-		    }
-			
+				ObjectOutputStream out = new ObjectOutputStream(
+						socket.getOutputStream());
+
+				out.writeObject(msg);
+				out.flush();
+			}
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
