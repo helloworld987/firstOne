@@ -18,7 +18,7 @@ public class Rules {
 			Iterator<Object> it = parser.sendAction_drop.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
-				Map<String, String> rules = (Map<String, String>) obj;
+				Map<String, Object> rules = (Map<String, Object>) obj;
 
 				if (rules.get("src") == null
 						|| rules.get("src").equals(msg.sourceName))
@@ -41,7 +41,7 @@ public class Rules {
 			Iterator<Object> it = parser.sendAction_delay.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
-				Map<String, String> rules = (Map<String, String>) obj;
+				Map<String, Object> rules = (Map<String, Object>) obj;
 
 				if (rules.get("src") == null
 						|| rules.get("src").equals(msg.sourceName))
@@ -65,7 +65,7 @@ public class Rules {
 			Iterator<Object> it = parser.sendAction_duplicate.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
-				Map<String, String> rules = (Map<String, String>) obj;
+				Map<String, Object> rules = (Map<String, Object>) obj;
 
 				if (rules.get("src") == null
 						|| rules.get("src").equals(msg.sourceName))
@@ -74,7 +74,8 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| (Integer.parseInt(rules.get("seqNum")) == msg.seqNum)) {
+									|| rules.get("seqNum").equals(Integer.toString(msg.seqNum))) {
+
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
 								msg_dup.set_seqNum(msg.seqNum);
@@ -106,7 +107,7 @@ public class Rules {
 			Iterator<Object> it = parser.receiveAction_drop.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
-				Map<String, String> rules = (Map<String, String>) obj;
+				Map<String, Object> rules = (Map<String, Object>) obj;
 
 				if (rules.get("src") == null
 						|| rules.get("src").equals(msg.sourceName))
@@ -129,7 +130,7 @@ public class Rules {
 			Iterator<Object> it = parser.receiveAction_delay.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
-				Map<String, String> rules = (Map<String, String>) obj;
+				Map<String, Object> rules = (Map<String, Object>) obj;
 
 				if (rules.get("src") == null
 						|| rules.get("src").equals(msg.sourceName))
@@ -153,7 +154,7 @@ public class Rules {
 			Iterator<Object> it = parser.receiveAction_duplicate.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
-				Map<String, String> rules = (Map<String, String>) obj;
+				Map<String, Object> rules = (Map<String, Object>) obj;
 
 				if (rules.get("src") == null
 						|| rules.get("src").equals(msg.sourceName))
