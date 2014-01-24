@@ -103,7 +103,7 @@ public class Receiver implements Runnable {
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						removeSocket(socket);
-						e.printStackTrace();
+						//e.printStackTrace();
 					}  
 				}
 			}
