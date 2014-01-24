@@ -9,7 +9,7 @@ import java.util.Queue;
 
 public class Receiver implements Runnable {
 	int port = 5050;
-	Queue<Message> receiveQueue = null;
+	public static Queue<Message> receiveQueue = null;
 	Queue<Message> deliverQueue = null;
 	HashMap<String, Socket> socketSet = null;
 

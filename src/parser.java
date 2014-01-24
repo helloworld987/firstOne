@@ -120,21 +120,19 @@ public class parser {
 	 * @param args
 	 * @throws FileNotFoundException 
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+public void parseConfig(String fname) throws FileNotFoundException {
 		
-		parser parse = new parser();
+		//parser parse = new parser();
 		//datatype conf = new datatype();
 		
 		Yaml yaml = new Yaml();
-		InputStream ios = new FileInputStream(new File("/home/madhuri/DS/Lab0/firstOne/src/test3.yaml"));
+		InputStream ios = new FileInputStream(new File(fname));
 	
 		Map<String,Object> result = (Map<String,Object>)yaml.load(ios);
-    			
-		System.out.println(result.get("sendRules"));
 		
-		parse.get_config(result);
-		parse.get_sendRules(result);
-		parse.get_receiveRules(result);
+		get_config(result);
+		get_sendRules(result);
+		get_receiveRules(result);
 		
 	}
 

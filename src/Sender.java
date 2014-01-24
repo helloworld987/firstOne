@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Queue;
 
 public class Sender implements Runnable {
-	Queue<Message> sendQueue = null;
+
+	public static Queue<Message> sendQueue = null;
 	HashMap<String, Socket> socketSet = null;
+
 
 	public void addToQueue(Message message) {
 		sendQueue.add(message);
@@ -30,14 +32,17 @@ public class Sender implements Runnable {
 			if (sendQueue.isEmpty()) continue;
 			try {
 				Message msg = sendQueue.poll();
-				String destID = msg.destName;
+				//String destID = msg.destName;
+				String ipAddr = parser.config.get(msg.destName).get(0);
+				int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
+			
 				
 				Socket socket = null;
-				if (socketSet.containsKey(destID+5050)) {
-					socket = socketSet.get(destID+5050);
+				if (socketSet.containsKey(ipAddr+port)) {
+					socket = socketSet.get(ipAddr+port);
 				} else {
-					socket = new  Socket(destID, 5050);
-					socketSet.put(destID+5050, socket);
+					socket = new  Socket(ipAddr, port);
+					socketSet.put(ipAddr+port, socket);
 				}
   
 				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());  
