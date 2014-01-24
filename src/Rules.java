@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -7,10 +9,22 @@ public class Rules {
 	public static boolean send_delay_flag = false;
 	public static boolean recv_delay_flag = false;
 
-	public void checkSendRules(Message msg) {
+	public void isModified() throws FileNotFoundException {
+		// Check if config file has changed
+		File file = new File(MessagePasser.conf_filename);
+		long Modified = file.lastModified();
+		if (MessagePasser.lastModified != Modified) {
+			parser.parseConfig(MessagePasser.conf_filename);
+		}
+	}
+	public void checkSendRules(Message msg) throws FileNotFoundException {
+	
 
 		int length = 0;
 
+		//Check if config file is updated
+		isModified();
+				
 		// Rules for action drop
 		length = parser.sendAction_drop.size();
 		if (length != 0) {
@@ -27,7 +41,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								return;
 							}
 
@@ -50,7 +64,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Sender.sendQueue.add(msg);
 								send_delay_flag = true;
 								return;
@@ -75,6 +89,7 @@ public class Rules {
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
 									|| rules.get("seqNum").equals(Integer.toString(msg.seqNum))) {
+
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
 								msg_dup.set_seqNum(msg.seqNum);
@@ -95,10 +110,13 @@ public class Rules {
 		send_delay_flag = false;
 	}
 	
-	public void checkReceiveRules(Message msg) {
+	public void checkReceiveRules(Message msg) throws FileNotFoundException {
 
 		int length = 0;
 
+		//Check if config file is updated
+		isModified();
+		
 		// Rules for action drop
 		length = parser.receiveAction_drop.size();
 		if (length != 0) {
@@ -115,7 +133,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								return;
 							}
 
@@ -138,7 +156,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Receiver.receiveQueue.add(msg);
 								recv_delay_flag = true;
 								return;
@@ -162,7 +180,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
 								msg_dup.set_seqNum(msg.seqNum);
