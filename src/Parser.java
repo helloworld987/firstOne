@@ -10,7 +10,7 @@ import java.util.Map;
 import org.yaml.snakeyaml.Yaml;
 
 
-public class parser {
+public class Parser {
 
 
 	public static Map<String, List<String>> config = new HashMap<String, List<String>>();
@@ -27,7 +27,7 @@ public class parser {
 	public static List<Object> receiveAction_duplicate = new ArrayList<Object>();
 	public static List<Object> receiveAction_delay = new ArrayList<Object>();	
 	
-	public parser() {
+	public Parser() {
 		// TODO Auto-generated constructor stub
 	}
 	

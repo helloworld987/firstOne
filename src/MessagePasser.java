@@ -8,7 +8,7 @@ public class MessagePasser {
 	String localName = null;
 	int seqNum = 0;
 	
-	parser parser = new parser();
+	public static Parser parser = new Parser();
 	public static long lastModified;
 	public static String conf_filename ;
 	

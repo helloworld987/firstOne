@@ -33,14 +33,14 @@ public class Sender {
 				try{
 				    socket.sendUrgentData(0xFF);
 				}catch(Exception ex){
-					String ipAddr = parser.config.get(msg.destName).get(0);
-					int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
+					String ipAddr = Parser.config.get(msg.destName).get(0);
+					int port = Integer.parseInt(Parser.config.get(msg.destName).get(1));
 					socket = new Socket(ipAddr, port);
 					sendSockets.put(destID, socket);
 				}
 			} else {
-				String ipAddr = parser.config.get(msg.destName).get(0);
-				int port = Integer.parseInt(parser.config.get(msg.destName).get(1));
+				String ipAddr = Parser.config.get(msg.destName).get(0);
+				int port = Integer.parseInt(Parser.config.get(msg.destName).get(1));
 				socket = new Socket(ipAddr, port);
 				sendSockets.put(destID, socket);
 			}

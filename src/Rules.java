@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Rules {
 
-	parser parser = new parser();
+	//Parser parser = new Parser();
 	public static boolean send_delay_flag = false;
 	public static boolean recv_delay_flag = false;
 
@@ -14,7 +14,10 @@ public class Rules {
 		File file = new File(MessagePasser.conf_filename);
 		long Modified = file.lastModified();
 		if (MessagePasser.lastModified != Modified) {
-			parser.parseConfig(MessagePasser.conf_filename);
+			
+			System.out.println("Lastmod=" + MessagePasser.lastModified + "Modified=" + Modified);
+			MessagePasser.parser.parseConfig(MessagePasser.conf_filename);
+			MessagePasser.lastModified = Modified;
 		}
 	}
 	public void checkSendRules(Message msg) throws FileNotFoundException {
@@ -26,10 +29,10 @@ public class Rules {
 		isModified();
 				
 		// Rules for action drop
-		length = parser.sendAction_drop.size();
+		length = MessagePasser.parser.sendAction_drop.size();
 		if (length != 0) {
 
-			Iterator<Object> it = parser.sendAction_drop.iterator();
+			Iterator<Object> it = MessagePasser.parser.sendAction_drop.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
 				Map<String, Object> rules = (Map<String, Object>) obj;
@@ -49,10 +52,10 @@ public class Rules {
 		}
 
 		// Rules for action delay
-		length = parser.sendAction_delay.size();
+		length = MessagePasser.parser.sendAction_delay.size();
 		if (length != 0) {
 
-			Iterator<Object> it = parser.sendAction_delay.iterator();
+			Iterator<Object> it = MessagePasser.parser.sendAction_delay.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
 				Map<String, Object> rules = (Map<String, Object>) obj;
@@ -73,10 +76,10 @@ public class Rules {
 			}
 		}
 		// Rules for action duplicate
-		length = parser.sendAction_duplicate.size();
+		length = MessagePasser.parser.sendAction_duplicate.size();
 		if (length != 0) {
 
-			Iterator<Object> it = parser.sendAction_duplicate.iterator();
+			Iterator<Object> it = MessagePasser.parser.sendAction_duplicate.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
 				Map<String, Object> rules = (Map<String, Object>) obj;
@@ -118,10 +121,10 @@ public class Rules {
 		isModified();
 		
 		// Rules for action drop
-		length = parser.receiveAction_drop.size();
+		length = MessagePasser.parser.receiveAction_drop.size();
 		if (length != 0) {
 
-			Iterator<Object> it = parser.receiveAction_drop.iterator();
+			Iterator<Object> it = MessagePasser.parser.receiveAction_drop.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
 				Map<String, Object> rules = (Map<String, Object>) obj;
@@ -141,10 +144,10 @@ public class Rules {
 		}
 
 		// Rules for action delay
-		length = parser.receiveAction_delay.size();
+		length = MessagePasser.parser.receiveAction_delay.size();
 		if (length != 0) {
 
-			Iterator<Object> it = parser.receiveAction_delay.iterator();
+			Iterator<Object> it = MessagePasser.parser.receiveAction_delay.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
 				Map<String, Object> rules = (Map<String, Object>) obj;
@@ -165,10 +168,10 @@ public class Rules {
 			}
 		}
 		// Rules for action duplicate
-		length = parser.receiveAction_duplicate.size();
+		length = MessagePasser.parser.receiveAction_duplicate.size();
 		if (length != 0) {
 
-			Iterator<Object> it = parser.receiveAction_duplicate.iterator();
+			Iterator<Object> it = MessagePasser.parser.receiveAction_duplicate.iterator();
 			while (it.hasNext()) {
 				Object obj = it.next();
 				Map<String, Object> rules = (Map<String, Object>) obj;
