@@ -43,9 +43,7 @@ public class MessagePasser {
 	
 	void send(Message message) throws FileNotFoundException {
 		message.set_source(localName);
-		System.out.println(seqNum);
 		message.set_seqNum(seqNum++);
-		
 		
 		Rules sendrules = new Rules();
 		sendrules.checkSendRules(message);
