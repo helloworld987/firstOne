@@ -13,6 +13,7 @@ public class Application {
 		String peerName;
 		String message;
 		String kind;
+		MessagePasser msgPasser=null;
 		
 		System.out.println("Enter config file:");
 		in = new Scanner(System.in);
@@ -21,9 +22,12 @@ public class Application {
 		System.out.println("Enter process name:");
 		in = new Scanner(System.in);
 		processName = in.next();
-		
-		MessagePasser msgPasser = new MessagePasser (fname, processName);
 
+		try{
+			msgPasser = new MessagePasser (fname, processName);
+		}catch (IllegalArgumentException e){
+			return;
+		}
 		
 		System.out.println("1.Send\n"  + "2.Receive\n");
 		

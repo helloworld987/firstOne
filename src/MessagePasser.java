@@ -12,7 +12,7 @@ public class MessagePasser {
 	public static long lastModified;
 	public static String conf_filename ;
 	
-	public MessagePasser(String configuration_filename, String local_name) throws FileNotFoundException {
+	public MessagePasser(String configuration_filename, String local_name) throws FileNotFoundException, IllegalArgumentException  {
 	
 		//Check lastModified date of file
 		File file = new File(configuration_filename);
@@ -21,7 +21,15 @@ public class MessagePasser {
 		this.conf_filename = configuration_filename;
 		
 		parser.parseConfig(configuration_filename);
-		int port = Integer.parseInt(parser.config.get(local_name).get(1));
+		int port = 0; 
+		
+		if (parser.config.get(local_name) == null) {
+			System.out.println("Node not present in config file..!");
+			throw new IllegalArgumentException();
+			
+		}else {
+			port = Integer.parseInt(parser.config.get(local_name).get(1));
+		}
 		
 		localName = local_name;
 		
