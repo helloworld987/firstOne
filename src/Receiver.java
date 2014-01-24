@@ -28,6 +28,17 @@ public class Receiver implements Runnable {
 		}
 	}
 	
+	private void removeSocket(Socket socket){
+		try {
+			mutex.acquire();
+			recSockets.remove(socket);
+			mutex.release();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			mutex.release();
+		}
+	}
+	
 	private HashSet<Socket> copySockets(){
 		try {
 			mutex.acquire();
@@ -91,6 +102,7 @@ public class Receiver implements Runnable {
 						recvRules.checkReceiveRules(data);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
+						removeSocket(socket);
 						e.printStackTrace();
 					}  
 				}
