@@ -21,7 +21,7 @@ public class Application {
 
 		System.out.println("Enter process name:");
 		in = new Scanner(System.in);
-		processName = in.next();
+		processName = in.nextLine();
 
 		try{
 			msgPasser = new MessagePasser (fname, processName);
@@ -34,22 +34,22 @@ public class Application {
 		while(true) {
 			System.out.println("Enter your choice::");
 			in = new Scanner(System.in);
-			choice = Integer.parseInt(in.next());
+			choice = Integer.parseInt(in.nextLine());
 			
 			switch(choice){
 			
 				case 1: 
 						System.out.println("Peer Name-");
 						in = new Scanner(System.in);
-						peerName = in.next();
+						peerName = in.nextLine();
 						
 						System.out.println("Kind -");
 						in = new Scanner(System.in);
-						kind = in.next();
+						kind = in.nextLine();
 						
 						System.out.println("Message -");
 						in = new Scanner(System.in);
-						message = in.next();
+						message = in.nextLine();
 						
 						Message msg = new Message (peerName, kind, message);
 						msgPasser.send(msg);
