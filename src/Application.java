@@ -22,8 +22,8 @@ public class Application {
 		in = new Scanner(System.in);
 		processName = in.next();
 		
-
 		MessagePasser msgPasser = new MessagePasser (fname, processName);
+
 		
 		System.out.println("1.Send\n"  + "2.Receive\n");
 		

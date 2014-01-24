@@ -37,6 +37,5 @@ receiveRules :
  - action : duplicate # 3rd message from Charlie that anyone 
    src : alice # receives will be duplicated
    kind : Ack
-  
 
 
