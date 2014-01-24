@@ -39,7 +39,7 @@ public class Sender {
 					sendSockets.put(destID, socket);
 				}
 			} else {
-				String ipAddr = Parser.config.get(msg.destName).get(0);
+				String ipAddr = Parser.config.get(msg.destName.trim()).get(0);
 				int port = Integer.parseInt(Parser.config.get(msg.destName).get(1));
 				socket = new Socket(ipAddr, port);
 				sendSockets.put(destID, socket);

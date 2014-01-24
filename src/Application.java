@@ -34,7 +34,13 @@ public class Application {
 		while(true) {
 			System.out.println("Enter your choice::");
 			in = new Scanner(System.in);
-			choice = Integer.parseInt(in.nextLine());
+			try{
+				choice = Integer.parseInt(in.nextLine());
+			} catch (Exception e){
+				System.out.println("Input is wrong!");
+				continue;
+			}
+			
 			
 			switch(choice){
 			
@@ -50,6 +56,7 @@ public class Application {
 						System.out.println("Message -");
 						in = new Scanner(System.in);
 						message = in.nextLine();
+						System.out.println("haha"+message);
 						
 						Message msg = new Message (peerName, kind, message);
 						msgPasser.send(msg);
@@ -63,6 +70,8 @@ public class Application {
 							System.out.println(msg1.getData());
 						}
 						break;
+				default:
+					
 			}
 		}
 	
