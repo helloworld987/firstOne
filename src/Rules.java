@@ -27,7 +27,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								return;
 							}
 
@@ -50,7 +50,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Sender.sendQueue.add(msg);
 								send_delay_flag = true;
 								return;
@@ -74,7 +74,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
 								msg_dup.set_seqNum(msg.seqNum);
@@ -115,7 +115,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								return;
 							}
 
@@ -138,7 +138,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Receiver.receiveQueue.add(msg);
 								recv_delay_flag = true;
 								return;
@@ -162,7 +162,7 @@ public class Rules {
 						if (rules.get("kind") == null
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
-									|| rules.get("seqNum").equals(msg.seqNum)) {
+									|| rules.get("seqNum").equals(String.valueOf(msg.seqNum))) {
 								Message msg_dup = new Message(msg.destName, msg.msgKind, msg.getData());
 								msg_dup.set_duplicate(true);
 								msg_dup.set_seqNum(msg.seqNum);
