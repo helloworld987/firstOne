@@ -1,14 +1,15 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-
 public class Application {
- 
-	public static void main(String[] args) throws InterruptedException, FileNotFoundException {
+
+	public static void main(String[] args) throws InterruptedException,
+			FileNotFoundException {
 		String fname;
 		String processName;
 		Scanner in;
 		int choice;
+
 		String peerName;
 		String message;
 		String kind;
@@ -62,9 +63,9 @@ public class Application {
 						break;
 			}
 		}
-		//msgPasser.send(msg);
-		//Thread.sleep(5000);
-		
+		// msgPasser.send(msg);
+		// Thread.sleep(5000);
+
 	}
 
 }
