@@ -9,6 +9,9 @@ public class Application {
 		String processName;
 		Scanner in;
 		int choice;
+		String peerName;
+		String message;
+		String kind;
 		
 //		System.out.println("Enter config file:");
 //		in = new Scanner(System.in);
@@ -18,8 +21,6 @@ public class Application {
 		System.out.println("Enter process name:");
 		in = new Scanner(System.in);
 		processName = in.next();
-		
-		//Message msg = new Message ("bob", "Ack", "123");
 		
 		MessagePasser msgPasser = new MessagePasser ("/home/madhuri/DS/Lab0/firstOne/src/test4.yaml", processName);
 		
@@ -31,15 +32,29 @@ public class Application {
 			choice = Integer.parseInt(in.next());
 			
 			switch(choice){
-				case 1: Message msg = new Message ("bob", "Ack", "123");
+				case 1: System.out.println("Peer Name-");
+						in = new Scanner(System.in);
+						peerName = in.next();
+						
+						System.out.println("Kind -");
+						in = new Scanner(System.in);
+						kind = in.next();
+						
+						System.out.println("Message -");
+						in = new Scanner(System.in);
+						message = in.next();
+						
+						Message msg = new Message (peerName, kind, message);
 						msgPasser.send(msg);
 						break;
 						
 				case 2: Message msg1 = msgPasser.receive(); 
 						if( msg1 == null)
 							System.out.println("No message received..!!");
-						else
+						else {
+							System.out.println("Source of Message -" + msg1.sourceName);					
 							System.out.println(msg1.getData());
+						}
 						break;
 			}
 		}
