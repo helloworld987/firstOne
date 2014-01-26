@@ -28,22 +28,10 @@ public class Sender {
 			String destID = msg.destName;
 			
 			Socket socket = null;
-			if (sendSockets.containsKey(destID)) {
-				socket = sendSockets.get(destID);
-				try{
-				    socket.sendUrgentData(0xFF);
-				}catch(Exception ex){
-					String ipAddr = Parser.config.get(msg.destName).get(0);
-					int port = Integer.parseInt(Parser.config.get(msg.destName).get(1));
-					socket = new Socket(ipAddr, port);
-					sendSockets.put(destID, socket);
-				}
-			} else {
-				String ipAddr = Parser.config.get(msg.destName.trim()).get(0);
-				int port = Integer.parseInt(Parser.config.get(msg.destName).get(1));
-				socket = new Socket(ipAddr, port);
-				sendSockets.put(destID, socket);
-			}
+			String ipAddr = Parser.config.get(msg.destName).get(0);
+			int port = Integer.parseInt(Parser.config.get(msg.destName).get(1));
+			socket = new Socket(ipAddr, port);
+			//sendSockets.put(destID, socket);
 
 				ObjectOutputStream out = new ObjectOutputStream(
 						socket.getOutputStream());

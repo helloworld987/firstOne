@@ -66,7 +66,8 @@ public class Receiver implements Runnable {
 		// TODO Auto-generated method stub
 		ServerSocket servSock = null;
 		try {
-			servSock = new ServerSocket(port);
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,11 +76,21 @@ public class Receiver implements Runnable {
 		// ExecutorService exec = Executors.newCachedThreadPool();
 		while (true) {
 			try {
+				//System.out.println("Start waiting!");
+				servSock = new ServerSocket(port);
 				Socket cltSocket = servSock.accept();
-				addSocket(cltSocket);		
+				//System.out.println("New socket!");
+				ObjectInputStream  in = new ObjectInputStream(cltSocket.getInputStream()); 
+				Message data = (Message)in.readObject();
+				//System.out.println(data.getData().toString());
+				//receiveQueue.add(data);
+				recvRules.checkReceiveRules(data);
+				servSock.close();
+				cltSocket.close();
+				//addSocket(cltSocket);		
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -99,10 +110,14 @@ public class Receiver implements Runnable {
 					try {
 						ObjectInputStream  in = new ObjectInputStream(socket.getInputStream()); 
 						Message data = (Message)in.readObject();
-						recvRules.checkReceiveRules(data);
+						if (data != null) {
+							System.out.println(data.getData().toString());
+						}
+						
+						//recvRules.checkReceiveRules(data);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						removeSocket(socket);
+						//removeSocket(socket);
 						//e.printStackTrace();
 					}  
 				}

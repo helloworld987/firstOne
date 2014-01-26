@@ -66,8 +66,9 @@ public class Rules {
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
 									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
-								Sender.sendQueue.add(msg);
 								send_delay_flag = true;
+								Sender.sendQueue.add(msg);
+								
 								return;
 							}
 
@@ -96,10 +97,11 @@ public class Rules {
 								msg_dup.set_seqNum(msg.seqNum);
 								msg_dup.set_source(msg.sourceName);
 								
+								send_delay_flag = false;
 								Sender.sendQueue.add(msg);
 								Sender.sendQueue.add(msg_dup);
 								
-								send_delay_flag = false;
+								
 								return;
 							}
 
@@ -107,8 +109,9 @@ public class Rules {
 		}
 		
 		//If no action matches, then send the msg
-		Sender.sendQueue.add(msg);
 		send_delay_flag = false;
+		Sender.sendQueue.add(msg);
+		
 	}
 	
 	public void checkReceiveRules(Message msg) throws FileNotFoundException {
@@ -158,8 +161,9 @@ public class Rules {
 								|| rules.get("kind").equals(msg.msgKind))
 							if (rules.get("seqNum") == null
 									|| rules.get("seqNum").toString().equals(String.valueOf(msg.seqNum))) {
-								Receiver.receiveQueue.add(msg);
 								recv_delay_flag = true;
+								Receiver.receiveQueue.add(msg);
+								
 								return;
 							}
 
@@ -187,10 +191,11 @@ public class Rules {
 								msg_dup.set_seqNum(msg.seqNum);
 								msg_dup.set_source(msg.sourceName);
 								
+								recv_delay_flag = false;
 								Receiver.receiveQueue.add(msg_dup);
 								Receiver.receiveQueue.add(msg);
 								
-								recv_delay_flag = false;
+								
 								return;
 							}
 
@@ -198,7 +203,8 @@ public class Rules {
 		}
 		
 		//If no action matches, then send the msg
-		Receiver.receiveQueue.add(msg);
 		recv_delay_flag = false;
+		Receiver.receiveQueue.add(msg);
+		
 	}
 }
